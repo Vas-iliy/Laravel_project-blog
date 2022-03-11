@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\RegisterUser;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -11,8 +14,15 @@ class UserController extends Controller
         return view('user.register');
     }
 
-    public function store(Request $request)
+    public function store(RegisterUser $request)
     {
-        dd($request->all());
+        $user = User::query()->create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
+        session()->flash('success', 'Регистрация пройдена');
+        Auth::login($user);
+        return redirect()->home()->with('success', 'Регистрация пройдена');
     }
 }
