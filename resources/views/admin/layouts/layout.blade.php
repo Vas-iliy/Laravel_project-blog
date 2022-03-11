@@ -283,6 +283,9 @@
             $(this).closest('.has-treeview').addClass('menu-open');
         }
     });
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+    });
 </script>
 
 </body>

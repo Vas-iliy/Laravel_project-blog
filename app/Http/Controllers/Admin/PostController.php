@@ -48,7 +48,9 @@ class PostController extends Controller
     {
         $post = Post::query()->find($id);
         $data = $request->all();
-        $data['image'] = Post::uploadImage($request, $post->image);
+        if ($file = Post::uploadImage($request, $post->image)) {
+            $data['image'] = $file;
+        }
         $post->update($data);
         $post->tags()->sync($request->tags);
         return redirect()->route('posts.index')->with('success', 'Изменения сохранены');
