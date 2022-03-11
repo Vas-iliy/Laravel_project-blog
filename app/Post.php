@@ -9,6 +9,8 @@ class Post extends Model
 {
     use Sluggable;
 
+    protected $fillable = ['title', 'description', 'content', 'category_id', 'image'];
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class);

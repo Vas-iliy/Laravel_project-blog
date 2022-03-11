@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCategory;
+use App\Http\Requests\StorePost;
 use App\Post;
 use App\Tag;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -25,9 +24,17 @@ class PostController extends Controller
         return view('admin.posts.create', compact('categories', 'tags'));
     }
 
-    public function store(StoreCategory $request)
+    public function store(StorePost $request)
     {
-        dd($request->all());
+        $data = $request->all();
+
+        if ($request->hasFile('image')) {
+            $folder = date('Y-m-d');
+            $data['image'] = $request->file('image')->store("images/{$folder}");
+        }
+
+        $post = Post::query()->create($data);
+        $post->tags()->sync($request->tags);
         return redirect()->route('posts.index')->with('success', 'Статья добавлена');
     }
 
@@ -37,7 +44,7 @@ class PostController extends Controller
         return view('admin.categories.edit', compact('category'));
     }
 
-    public function update(StoreCategory $request, $id)
+    public function update(StorePost $request, $id)
     {
 
         return redirect()->route('categories.index')->with('success', 'Изменения сохранены');
