@@ -51,4 +51,9 @@ class Post extends Model
         }
         return asset('uploads/'.$this->image);
     }
+
+    public function scopeLike($query, $s)
+    {
+        return $query->where('title', 'like', "%$s%");
+    }
 }
