@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PostController@index')->name('home');
-Route::get('/article{slug}', 'PostController@show')->name('posts.article');
-Route::get('/category{slug}', 'CategoryController@show')->name('categories.single');
+Route::get('/article/{slug}', 'PostController@show')->name('posts.article');
+Route::get('/category/{slug}', 'CategoryController@show')->name('categories.single');
+Route::get('/tag/{slug}', 'TagController@show')->name('tags.single');
 
 //Admin
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
