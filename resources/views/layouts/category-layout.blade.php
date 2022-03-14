@@ -41,9 +41,9 @@
                             <a class="nav-link" href="{{route('home')}}">Home</a>
                         </li>
                         @foreach($categories as $category)
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('categories.single', ['slug' => $category->slug])}}">{{$category->title}}</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('categories.single', ['slug' => $category->slug])}}">{{$category->title}}</a>
+                            </li>
                         @endforeach
                     </ul>
                     <form class="form-inline">
@@ -55,17 +55,16 @@
         </div><!-- end container-fluid -->
     </header><!-- end market-header -->
 
-    @yield('header')
+    @yield('page-title')
 
-    <section class="section lb @if(!\Illuminate\Support\Facades\Request::is('/'))m3rem @endif">
+    <section class="section lb">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-                    @yield('content')
-                </div><!-- end col -->
-
                 <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                     @include('layouts.sidebar')
+                </div><!-- end col -->
+                <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                    @yield('content')
                 </div><!-- end col -->
             </div><!-- end row -->
         </div><!-- end container -->
